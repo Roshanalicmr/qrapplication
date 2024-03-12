@@ -38,7 +38,7 @@ class _RegState extends State<Reg> {
               Container(
                 width: 420,
                 child: TextField(
-                    decoration:InputDecoration(labelText: 'Enter your e-mail',border:OutlineInputBorder()
+                    decoration:InputDecoration(labelText: 'Enter yhiour e-mail',border:OutlineInputBorder()
                     )
                 ),
               ),
