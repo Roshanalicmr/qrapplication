@@ -30,7 +30,7 @@ class _RegState extends State<Reg> {
               Container(
                 width: 420,
                 child: TextField(
-                    decoration:InputDecoration(labelText: 'Enter your roll no.',border:OutlineInputBorder(),
+                    decoration:InputDecoration(labelText: 'Enter     your roll no.',border:OutlineInputBorder(),
                     ),
                 ),
               ),
