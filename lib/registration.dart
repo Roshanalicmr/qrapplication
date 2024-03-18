@@ -43,7 +43,7 @@ class _RegState extends State<Reg> {
           ));
     }
     else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User Already exist')));
     }
   }
   @override
@@ -125,7 +125,7 @@ class _RegState extends State<Reg> {
                       register();
 
                     });
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Success(),));
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => Success(),));
                   },
                   child: Text(
                     'Register',
