@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:qrapp/login.dart';
+import 'package:qrapp/regsuccess.dart';
+import 'package:http/http.dart'as http;
+
 class Reg extends StatefulWidget {
   const Reg({Key? key}) : super(key: key);
 
@@ -7,54 +13,127 @@ class Reg extends StatefulWidget {
 }
 
 class _RegState extends State<Reg> {
+  final _nameController = TextEditingController();
+  final _rolNoController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  void register()async {
+    print(_nameController.text);
+    print(_rolNoController.text);
+    print(_emailController.text);
+    print(_passwordController.text);
+    Uri uri = Uri.parse('https://scnner-web.onrender.com/api/register');
+    var response = await http.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+
+        },
+        body: jsonEncode({
+          'name': _nameController.text,
+          'rollno': _rolNoController.text,
+          'email': _emailController.text,
+          'password': _passwordController.text,
+        }));
+    print('ddd$response');
+    if (response.statusCode == 200) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Login(),
+          ));
+    }
+    else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('')));
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:
-      Scaffold(
-        backgroundColor:Colors.teal,
-        body:Center(
-          child:Column(
-            children: [
-              SizedBox(height:15 ),
-              Text('Registration',style: TextStyle(fontSize: 16,color: Colors.white),),
-              SizedBox(height:80 ),
+    return Scaffold(
+      backgroundColor: Colors.lightBlueAccent,
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            Text(
+              'Registration',
+              style: TextStyle(fontSize: 24, color: Colors.white),
+            ),
+            SizedBox(
+              height: 50,
+            ),
             Container(
-              width: 420,
+              width: 300,
+              height: 50,
               child: TextField(
-        decoration:InputDecoration(labelText: 'Enter your name',border:OutlineInputBorder()
-              )
+                controller: _nameController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(), labelText: 'Enter your Name'),
               ),
             ),
-              SizedBox(height:20 ),
-              Container(
-                width: 420,
-                child: TextField(
-                    decoration:InputDecoration(labelText: 'Enter     your roll no.',border:OutlineInputBorder(),
-                    ),
-                ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              width: 300,
+              height: 50,
+              child: TextField(
+                controller: _rolNoController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter your Roll Number'),
               ),
-              SizedBox(height:20 ),
-              Container(
-                width: 420,
-                child: TextField(
-                    decoration:InputDecoration(labelText: 'Enter yhiour e-mail',border:OutlineInputBorder()
-                    )
-                ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              width: 300,
+              height: 50,
+              child: TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter your Email'),
               ),
-              SizedBox(height:20 ),
-              Container(
-                width: 420,
-                child: TextField(
-                    decoration:InputDecoration(labelText: 'Enter your password',border:OutlineInputBorder()
-                    )
-                ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              width: 300,
+              height: 50,
+              child: TextField(
+                controller: _passwordController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter your Password'),
               ),
-              SizedBox(height:35 ),
-              ElevatedButton(onPressed: (){}, child:Text('Register'),style: ElevatedButton.styleFrom(primary:Colors.teal),),
-            ],
-          ),
-        )
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Container(
+              width: 200,
+              height: 30,
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      register();
+
+                    });
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Success(),));
+                  },
+                  child: Text(
+                    'Register',
+                    style: TextStyle(color: Colors.teal, fontSize: 18),
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }
